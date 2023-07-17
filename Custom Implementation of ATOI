@@ -1,1 +1,35 @@
+func myAtoi(value: String) -> Int {
+    
+    // remove space
+    // check for sign
+    // convert to Int
+    // handle overflow
+    
+    var ind = 0
+    var isPositive = true
+    var intValue = 0
+    
+    
+    while String(value[value.index(value.startIndex, offsetBy: ind)]) == "" {
+        ind += 1
+    }
+    
+    if String(value[value.index(value.startIndex, offsetBy: ind)]) == "-" {
+        isPositive = false
+    }
+    
+    for charInd in ind...value.count-1 {
+        
+        let strVal = String(value[value.index(value.startIndex, offsetBy: charInd)])
+        
+        if let digit = Int(strVal) {
+            if intValue > (Int.max - intValue)/10 {
+                return isPositive ? Int.max : -(Int.max)
+            }
+            intValue = (intValue * 10) + digit
+        }
+    }
+    return isPositive ? intValue : -intValue
+}
 
+myAtoi(value: "568978987t89")
